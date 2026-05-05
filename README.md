@@ -19,3 +19,5 @@ Aplicación web para profesores de Educación Física: gestión de pruebas, clas
 - `index.html` — Página principal
 - `js/app.js` — Lógica de la aplicación
 - `js/data.js` — Carga de datos (CSV y URL de Apps Script)
+
+## Enlace a la página web: https://gerardohmx.github.io/baremos/
