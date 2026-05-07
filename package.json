@@ -1,0 +1,14 @@
+{
+    "name": "baremos",
+    "version": "1.0.0",
+    "description": "Baremos Educación Física",
+    "scripts": {
+        "build": "tailwindcss -i ./styles.css -o ./dist/styles.css",
+        "dev": "tailwindcss -i ./styles.css -o ./dist/styles.css --watch"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.4.0",
+        "postcss": "^8.4.0",
+        "autoprefixer": "^10.4.0"
+    }
+}
