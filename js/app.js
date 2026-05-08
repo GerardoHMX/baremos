@@ -937,6 +937,16 @@ function formatAverage(value) {
         : '—';
 }
 
+function summaryStatCard(label, value, detail = '', valueClass = 'text-gray-900') {
+    return `
+        <div class="summary-stat-card bg-gray-50 border border-gray-100 rounded-xl p-3">
+            <p class="summary-stat-label">${label}</p>
+            <p class="summary-stat-value ${valueClass}">${value}</p>
+            <p class="summary-stat-detail">${detail || '&nbsp;'}</p>
+        </div>
+    `;
+}
+
 function renderClassSummary() {
     const panel = document.getElementById('class-summary-panel');
     if (!panel || !currentClassId) return;
@@ -997,7 +1007,7 @@ function renderClassSummary() {
             </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div class="summary-main-stats grid grid-cols-2 md:grid-cols-6 gap-3">
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
                 <p class="text-xs text-gray-400">Alumnos</p>
                 <p class="text-xl font-bold text-gray-900">${classStudents.length}</p>
@@ -1027,25 +1037,17 @@ function renderClassSummary() {
                 <p class="text-xl font-bold text-gray-900">${completion.percent}%</p>
                 <p class="text-xs text-gray-400">${completion.completed}/${completion.total}</p>
             </div>
+
+            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3">
+                <p class="text-xs text-gray-400">Pendientes T${currentTrimester}</p>
+                <p class="text-xl font-bold text-gray-900">${completion.pending}</p>
+            </div>
         </div>
 
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-4 gap-3">
-            <div class="border border-gray-100 rounded-xl p-3">
-                <p class="text-xs text-gray-400">T1</p>
-                <p class="text-lg font-bold ${gradeColorClass(avgT1 || 0)}">${formatAverage(avgT1)}</p>
-            </div>
-            <div class="border border-gray-100 rounded-xl p-3">
-                <p class="text-xs text-gray-400">T2</p>
-                <p class="text-lg font-bold ${gradeColorClass(avgT2 || 0)}">${formatAverage(avgT2)}</p>
-            </div>
-            <div class="border border-gray-100 rounded-xl p-3">
-                <p class="text-xs text-gray-400">T3</p>
-                <p class="text-lg font-bold ${gradeColorClass(avgT3 || 0)}">${formatAverage(avgT3)}</p>
-            </div>
-            <div class="border border-gray-100 rounded-xl p-3">
-                <p class="text-xs text-gray-400">Pendientes T${currentTrimester}</p>
-                <p class="text-lg font-bold text-gray-900">${completion.pending}</p>
-            </div>
+        <div class="summary-trimester-stats mt-4 grid grid-cols-3 gap-3 max-w-3xl mx-auto">
+            ${summaryStatCard('T1', formatAverage(avgT1), '', gradeColorClass(avgT1 || 0))}
+            ${summaryStatCard('T2', formatAverage(avgT2), '', gradeColorClass(avgT2 || 0))}
+            ${summaryStatCard('T3', formatAverage(avgT3), '', gradeColorClass(avgT3 || 0))}
         </div>
     </div>
 

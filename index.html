@@ -433,7 +433,304 @@
     opacity: 1;
   }
 
-    </style>
+  /* ── Mejoras móviles · sección alumnos / resumen ─────────── */
+@media (max-width: 640px) {
+
+  main {
+    padding-top: 1rem !important;
+    padding-left: 0.875rem !important;
+    padding-right: 0.875rem !important;
+  }
+
+  #section-alumnos > div:first-child {
+    gap: 0.75rem !important;
+    margin-bottom: 0.875rem !important;
+  }
+
+  #alumnos-title {
+    text-align: center;
+    font-size: 1.15rem !important;
+  }
+
+  #section-alumnos > div:first-child > div {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 0.5rem !important;
+  }
+
+  #section-alumnos > div:first-child button {
+    width: 100%;
+    justify-content: center;
+    padding-top: 0.55rem !important;
+    padding-bottom: 0.55rem !important;
+  }
+
+  #class-summary-panel {
+    margin-bottom: 1rem !important;
+  }
+
+  #class-summary-panel > div {
+    gap: 0.75rem !important;
+  }
+
+  /* Tarjeta principal del resumen */
+  #class-summary-panel > div > div:first-child {
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+
+  /* Cabecera: resumen + trimestre actual */
+  #class-summary-panel > div > div:first-child > div:first-child {
+    display: grid !important;
+    grid-template-columns: 1fr auto;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.875rem !important;
+  }
+
+  #class-summary-panel > div > div:first-child > div:first-child > div:first-child {
+    text-align: left;
+  }
+
+  #class-summary-panel > div > div:first-child > div:first-child > div:last-child {
+    text-align: center !important;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.875rem;
+    padding: 0.65rem 0.85rem;
+    min-width: 72px;
+  }
+
+  #class-summary-panel h3 {
+    font-size: 1rem !important;
+    margin-top: 0.35rem !important;
+  }
+
+  #class-summary-panel p {
+    line-height: 1.2 !important;
+  }
+
+  /* Primera fila de métricas: Alumnos, pruebas, medias, completado */
+  #class-summary-panel > div > div:first-child > div:nth-child(2) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+
+  #class-summary-panel > div > div:first-child > div:nth-child(2) > div {
+    min-height: 76px;
+    padding: 0.65rem 0.4rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #class-summary-panel > div > div:first-child > div:nth-child(2) > div p:first-child {
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  #class-summary-panel > div > div:first-child > div:nth-child(2) > div p:nth-child(2) {
+    font-size: 1.15rem !important;
+    line-height: 1 !important;
+  }
+
+  #class-summary-panel > div > div:first-child > div:nth-child(2) > div p:nth-child(3) {
+    font-size: 0.65rem !important;
+    margin-top: 0.35rem !important;
+  }
+
+  /* Segunda fila: T1, T2, T3, pendientes */
+  #class-summary-panel > div > div:first-child > div:nth-child(3) {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  #class-summary-panel > div > div:first-child > div:nth-child(3) > div {
+    min-height: 66px;
+    padding: 0.6rem 0.3rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #class-summary-panel > div > div:first-child > div:nth-child(3) > div p:first-child {
+    font-size: 0.65rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  #class-summary-panel > div > div:first-child > div:nth-child(3) > div p:nth-child(2) {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+  }
+
+  /* Tarjeta de mejores pruebas / reforzar */
+  #class-summary-panel > div > div:nth-child(2) {
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+  }
+
+  #class-summary-panel > div > div:nth-child(2) > div {
+    gap: 0.875rem !important;
+  }
+
+  #class-summary-panel > div > div:nth-child(2) p {
+    text-align: center;
+    font-size: 0.68rem !important;
+  }
+
+  #class-summary-panel > div > div:nth-child(2) li {
+    font-size: 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* ── Resumen de clase: orden y alineación ────────────────── */
+.summary-main-stats > div,
+.summary-trimester-stats > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 92px;
+}
+
+.summary-trimester-stats {
+  width: 100%;
+}
+
+.summary-trimester-stats > div {
+  min-height: 86px;
+}
+
+/* Desktop: T1, T2 y T3 centradas y ocupando buen ancho */
+@media (min-width: 641px) {
+  .summary-trimester-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    max-width: 720px;
+  }
+}
+
+/* Móvil: cards más compactas */
+@media (max-width: 640px) {
+  .summary-main-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+
+  .summary-main-stats > div {
+    min-height: 72px;
+    padding: 0.6rem 0.4rem !important;
+  }
+
+  .summary-main-stats > div p:first-child {
+    font-size: 0.62rem !important;
+    line-height: 1.15 !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .summary-main-stats > div p:nth-child(2) {
+    font-size: 1.05rem !important;
+    line-height: 1 !important;
+  }
+
+  .summary-main-stats > div p:nth-child(3) {
+    font-size: 0.62rem !important;
+    margin-top: 0.3rem !important;
+  }
+
+  .summary-trimester-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+    max-width: 100%;
+    margin-top: 0.6rem !important;
+  }
+
+  .summary-trimester-stats > div {
+    min-height: 68px;
+    padding: 0.6rem 0.3rem !important;
+  }
+
+  .summary-trimester-stats > div p:first-child {
+    font-size: 0.65rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .summary-trimester-stats > div p:nth-child(2) {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+  }
+
+  /* ── Resumen: cards centradas y alineadas ─────────────────── */
+.summary-stat-card {
+  min-height: 92px;
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.summary-stat-label {
+  align-self: end;
+  font-size: 0.72rem;
+  color: #9ca3af;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.summary-stat-value {
+  align-self: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0.25rem 0;
+}
+
+.summary-stat-detail {
+  align-self: start;
+  font-size: 0.68rem;
+  color: #9ca3af;
+  line-height: 1;
+  margin: 0;
+}
+
+.summary-trimester-stats .summary-stat-card {
+  min-height: 76px;
+}
+
+/* Móvil */
+@media (max-width: 640px) {
+  .summary-stat-card {
+    min-height: 82px;
+    padding: 0.65rem 0.45rem !important;
+  }
+
+  .summary-stat-label {
+    font-size: 0.62rem;
+  }
+
+  .summary-stat-value {
+    font-size: 1.05rem;
+  }
+
+  .summary-stat-detail {
+    font-size: 0.6rem;
+  }
+
+  .summary-trimester-stats .summary-stat-card {
+    min-height: 68px;
+  }
+}
+}
+
+
+  </style>
   </head>
 
   <body class="bg-gray-50 text-gray-900 text-sm sm:text-base">
