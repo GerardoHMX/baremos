@@ -1,1019 +1,1176 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Baremos Educación Física</title>
-  <!-- Favicon: Anillos Olímpicos -->
-  <link rel="icon" type="image/svg+xml" href="favicon.png" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baremos Educación Física</title>
+    <!-- Favicon: Anillos Olímpicos -->
+    <link rel="icon" type="image/svg+xml" href="favicon.png" />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Tailwind CSS (preflight disabled to avoid Bootstrap conflicts) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        corePlugins: { preflight: false }
+      }
+    </script>
 
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Tailwind CSS (preflight disabled to avoid Bootstrap conflicts) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      corePlugins: { preflight: false }
-    }
-  </script>
-
-  <!-- Bootstrap 5 JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <style>
-    /* Import fonts */
-    @font-face {
-      font-family: 'LaLiga Headline VF';
-      src: url('./fonts/LALIGAHeadlineVF.woff2') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'LaLiga Headline STD Bold';
-      src: url('./fonts/LALIGAHeadline-StdBold.woff');
-      src: url('./fonts/LALIGAHeadline-StdBold.woff2'), url('./fonts/LALIGAHeadline-StdBold.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'LaLiga Players';
-      src: url('./fonts/LALIGAPlayers-Regular.woff');
-      src: url('./fonts/LALIGAPlayers-Regular.woff2'), url('./fonts/LALIGAPlayers-Regular.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'LaLiga Text';
-      src: url('./fonts/LALIGAText-Regular.woff');
-      src: url('./fonts/LALIGAText-Regular.woff2'), url('./fonts/LALIGAText-Regular.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'LaLiga Text Bold';
-      src: url('./fonts/LALIGAHeadline-StdBold.woff') format('woff');
-      src: url('./fonts/LALIGAHeadline-StdBold.woff2') format('woff2');
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'font-laliga';
-      src: url('./fonts/font-laliga.eot?twoxy9');
-      src: url('./font-laliga.eot?twoxy9#iefix') format('embedded-opentype'),
-        url('./fonts/font-laliga.woff2?twoxy9') format('woff2'),
-        url('./fonts/font-laliga.ttf?twoxy9') format('truetype'),
-        url('./fonts/font-laliga.woff?twoxy9') format('woff'),
-        url('./fonts/font-laliga.svg?twoxy9#font-laliga') format('svg');
-      font-weight: normal;
-      font-style: normal;
-      font-display: block;
-    }
-
-    *,
-    ::before,
-    ::after {
-      font-family: 'LaLiga Text', 'Roboto', sans-serif;
-      font-size: inherit;
-      letter-spacing: 0.1em;
-      line-height: 1.1;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'LaLiga Text', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    /* ── Section visibility ───────────────────────────── */
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-      animation: sectionFadeIn 0.18s ease-out;
-    }
-
-    @keyframes sectionFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
+    <style>
+      /* Import fonts */
+      @font-face {
+        font-family: 'LaLiga Headline VF';
+        src: url('./fonts/LALIGAHeadlineVF.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
       }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      @font-face {
+        font-family: 'LaLiga Headline STD Bold';
+        src: url('./fonts/LALIGAHeadline-StdBold.woff');
+        src: url('./fonts/LALIGAHeadline-StdBold.woff2'), url('./fonts/LALIGAHeadline-StdBold.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
       }
-    }
 
-    /* ── Nav pills: inactivo vs activo (indica qué sección se muestra) ── */
-    .nav-pill {
-      background-color: #f3f4f6;
-      color: #6b7280;
-      border: 1px solid #e5e7eb;
-    }
-    .nav-pill:hover:not(.active) {
-      background-color: #e5e7eb;
-      color: #374151;
-    }
-    .nav-pill.active {
-      background-color: #1f2937;
-      color: #ffffff !important;
-      border-color: #1f2937;
-    }
+      @font-face {
+        font-family: 'LaLiga Players';
+        src: url('./fonts/LALIGAPlayers-Regular.woff');
+        src: url('./fonts/LALIGAPlayers-Regular.woff2'), url('./fonts/LALIGAPlayers-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
 
-    /* ── Toggle switch ────────────────────────────────── */
-    .toggle-wrap {
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-    }
+      @font-face {
+        font-family: 'LaLiga Text';
+        src: url('./fonts/LALIGAText-Regular.woff');
+        src: url('./fonts/LALIGAText-Regular.woff2'), url('./fonts/LALIGAText-Regular.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
 
-    .toggle-input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+      @font-face {
+        font-family: 'LaLiga Text Bold';
+        src: url('./fonts/LALIGAHeadline-StdBold.woff') format('woff');
+        src: url('./fonts/LALIGAHeadline-StdBold.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
 
-    .toggle-track {
-      position: relative;
-      width: 38px;
-      height: 20px;
-      background: #d1d5db;
-      border-radius: 10px;
-      transition: background 0.2s;
-    }
+      @font-face {
+        font-family: 'font-laliga';
+        src: url('./fonts/font-laliga.eot?twoxy9');
+        src: url('./font-laliga.eot?twoxy9#iefix') format('embedded-opentype'),
+          url('./fonts/font-laliga.woff2?twoxy9') format('woff2'),
+          url('./fonts/font-laliga.ttf?twoxy9') format('truetype'),
+          url('./fonts/font-laliga.woff?twoxy9') format('woff'),
+          url('./fonts/font-laliga.svg?twoxy9#font-laliga') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+      }
 
-    .toggle-input:checked+.toggle-track {
-      background: #10b981;
-    }
+      *,
+      ::before,
+      ::after {
+        font-family: 'LaLiga Text', 'Roboto', sans-serif;
+        font-size: inherit;
+        letter-spacing: 0.1em;
+        line-height: 1.1;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    .toggle-thumb {
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      width: 16px;
-      height: 16px;
-      background: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
-      transition: transform 0.2s;
-    }
+      body {
+        font-family: 'LaLiga Text', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
 
-    .toggle-input:checked+.toggle-track .toggle-thumb {
-      transform: translateX(18px);
-    }
+      /* ── Section visibility ───────────────────────────── */
+      .section {
+        display: none;
+      }
 
-    /* ── Card hover ───────────────────────────────────── */
-    .class-card {
-      transition: box-shadow 0.15s, transform 0.15s;
-    }
+      .section.active {
+        display: block;
+        animation: sectionFadeIn 0.18s ease-out;
+      }
 
-    .class-card:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
-      transform: translateY(-1px);
-    }
+      @keyframes sectionFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
 
-    /* ── Bootstrap modal / offcanvas overrides ────────── */
-    :root {
-      --bs-modal-border-radius: 0.75rem;
-    }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-    .modal-content {
-      border: none;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .12);
-    }
-
-    .offcanvas-end {
-      border-left: 1px solid #e5e7eb !important;
-    }
-
-    /* ── Trimester tabs: estado activo (Bootstrap añade .active) ── */
-    #trimesterTabs .nav-link.active {
-      background: #ffffff;
-      color: #2563eb;
-      border-left-color: #d1d5db;
-      border-right-color: #d1d5db;
-      border-top-color: #d1d5db;
-      border-bottom: 1px solid #ffffff;
-      margin-bottom: -1px;
-    }
-    #trimesterTabs .nav-link.active:hover {
-      background: #ffffff;
-      color: #1d4ed8;
-    }
-
-    /* ── Baremos table: zebra stripes + cross highlight ── */
-    #baremos-table-wrap tbody tr:nth-child(even) td {
-      background-color: #f1f5f9;
-    }
-    #baremos-table-wrap td.bh-row,
-    #baremos-table-wrap td.bh-col {
-      background-color: #dbeafe !important;
-    }
-    #baremos-table-wrap td.bh-cell {
-      background-color: #93c5fd !important;
-      color: #1e40af !important;
-      font-weight: 700 !important;
-    }
-    #baremos-table-wrap th.bh-col {
-      background-color: #1d4ed8 !important;
-      color: #ffffff !important;
-    }
-
-    /* ── Focus ring ───────────────────────────────────── */
-    input:focus,
-    select:focus,
-    textarea:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px #1f2937;
-      border-color: #1f2937;
-    }
-
-    .print-root {
-  display: none;
-}
-
-@media print {
-  body > *:not(#print-root) {
-    display: none !important;
-  }
-
-  #print-root {
-    display: block !important;
-    padding: 24px;
-    color: #111827;
-    background: #ffffff;
-    font-family: Arial, sans-serif;
-  }
-
-  .print-page {
-    page-break-after: always;
-  }
-
-  .print-title {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-
-  .print-subtitle {
-    font-size: 13px;
-    color: #6b7280;
-    margin-bottom: 18px;
-  }
-
-  .print-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .print-card {
+        /* ── Mobile navbar ───────────────────────────────────── */
+  .mobile-menu-btn {
+    width: 36px;
+    height: 36px;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 0.5rem;
+    background: #f9fafb;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background 0.2s, border-color 0.2s;
   }
 
-  .print-card-label {
-    font-size: 11px;
-    color: #6b7280;
-    margin-bottom: 4px;
-  }
-
-  .print-card-value {
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .print-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 11px;
-    margin-top: 12px;
-  }
-
-  .print-table th,
-  .print-table td {
-    border: 1px solid #d1d5db;
-    padding: 6px;
-    text-align: center;
-  }
-
-  .print-table th {
+  .mobile-menu-btn:hover {
     background: #f3f4f6;
-    font-weight: 700;
+    border-color: #d1d5db;
   }
 
-  .print-table td:first-child,
-  .print-table th:first-child {
+  .mobile-menu-btn span {
+    width: 18px;
+    height: 2px;
+    background: #1f2937;
+    border-radius: 999px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .mobile-menu-btn.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobile-menu-btn.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-btn.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .mobile-nav {
+    display: none;
+    padding-top: 0.75rem;
+    gap: 0.5rem;
+    flex-direction: column;
+  }
+
+  .mobile-nav.open {
+    display: flex;
+  }
+
+  .mobile-nav-pill {
+    width: 100%;
     text-align: left;
   }
 
-  .print-section-title {
-    font-size: 15px;
-    font-weight: 700;
-    margin-top: 20px;
-    margin-bottom: 8px;
+      /* ── Nav pills: inactivo vs activo (indica qué sección se muestra) ── */
+      .nav-pill {
+        background-color: #f3f4f6;
+        color: #6b7280;
+        border: 1px solid #e5e7eb;
+      }
+      .nav-pill:hover:not(.active) {
+        background-color: #e5e7eb;
+        color: #374151;
+      }
+      .nav-pill.active {
+        background-color: #1f2937;
+        color: #ffffff !important;
+        border-color: #1f2937;
+      }
+
+      /* ── Toggle switch ────────────────────────────────── */
+      .toggle-wrap {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .toggle-input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-track {
+        position: relative;
+        width: 38px;
+        height: 20px;
+        background: #d1d5db;
+        border-radius: 10px;
+        transition: background 0.2s;
+      }
+
+      .toggle-input:checked+.toggle-track {
+        background: #10b981;
+      }
+
+      .toggle-thumb {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+        transition: transform 0.2s;
+      }
+
+      .toggle-input:checked+.toggle-track .toggle-thumb {
+        transform: translateX(18px);
+      }
+
+      /* ── Card hover ───────────────────────────────────── */
+      .class-card {
+        transition: box-shadow 0.15s, transform 0.15s;
+      }
+
+      .class-card:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+        transform: translateY(-1px);
+      }
+
+      /* ── Bootstrap modal / offcanvas overrides ────────── */
+      :root {
+        --bs-modal-border-radius: 0.75rem;
+      }
+
+      .modal-content {
+        border: none;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .12);
+      }
+
+      .offcanvas-end {
+        border-left: 1px solid #e5e7eb !important;
+      }
+
+      /* ── Trimester tabs: estado activo (Bootstrap añade .active) ── */
+      #trimesterTabs .nav-link.active {
+        background: #ffffff;
+        color: #2563eb;
+        border-left-color: #d1d5db;
+        border-right-color: #d1d5db;
+        border-top-color: #d1d5db;
+        border-bottom: 1px solid #ffffff;
+        margin-bottom: -1px;
+      }
+      #trimesterTabs .nav-link.active:hover {
+        background: #ffffff;
+        color: #1d4ed8;
+      }
+
+      /* ── Baremos table: zebra stripes + cross highlight ── */
+      #baremos-table-wrap tbody tr:nth-child(even) td {
+        background-color: #f1f5f9;
+      }
+      #baremos-table-wrap td.bh-row,
+      #baremos-table-wrap td.bh-col {
+        background-color: #dbeafe !important;
+      }
+      #baremos-table-wrap td.bh-cell {
+        background-color: #93c5fd !important;
+        color: #1e40af !important;
+        font-weight: 700 !important;
+      }
+      #baremos-table-wrap th.bh-col {
+        background-color: #1d4ed8 !important;
+        color: #ffffff !important;
+      }
+
+      /* ── Focus ring ───────────────────────────────────── */
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #1f2937;
+        border-color: #1f2937;
+      }
+
+      .print-root {
+    display: none;
   }
 
-  .print-muted {
+  @media print {
+    body > *:not(#print-root) {
+      display: none !important;
+    }
+
+    #print-root {
+      display: block !important;
+      padding: 24px;
+      color: #111827;
+      background: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+
+    .print-page {
+      page-break-after: always;
+    }
+
+    .print-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .print-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 18px;
+    }
+
+    .print-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .print-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .print-card-label {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .print-card-value {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 12px;
+    }
+
+    .print-table th,
+    .print-table td {
+      border: 1px solid #d1d5db;
+      padding: 6px;
+      text-align: center;
+    }
+
+    .print-table th {
+      background: #f3f4f6;
+      font-weight: 700;
+    }
+
+    .print-table td:first-child,
+    .print-table th:first-child {
+      text-align: left;
+    }
+
+    .print-section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .print-muted {
+      color: #6b7280;
+    }
+  }
+      /* ── Footer ───────────────────────────────────────── */
+  .app-footer {
+    border-top: 1px solid #e5e7eb;
+    background: #ffffff;
     color: #6b7280;
   }
-}
 
-  </style>
-</head>
+  .app-footer a {
+    color: #374151;
+    text-decoration: none;
+  }
 
-<body class="bg-gray-50 text-gray-900 text-sm sm:text-base">
+  .app-footer a:hover {
+    color: #111827;
+    text-decoration: underline;
+  }
 
-  <!-- HEADER  -->
-  <header class="bg-white border-b border-gray-200 sticky top-0" style="z-index:1040;">
-    <div class="max-w-screen-3xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+  .footer-profile-img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 1px solid #e5e7eb;
+    transition: transform 0.2s ease;
+  }
 
-      <!-- Logo + Title -->
-      <div class="flex items-center gap-1">
-        <div class="w-6 h-7 bg-gray-900 rounded-r-lg flex items-center justify-center text-center flex-shrink-0 text-white font-bolder text-4xl">
-          B
-        </div>
-        <h3 class="font-bolder text-4xl m-auto text-gray-900">aremos</h3>
-      </div>
+  .footer-profile-img:hover {
+    transform: scale(1.15);
+  }
 
-      <!-- Nav pills: el activo se resalta para indicar qué sección se muestra -->
-      <nav class="flex gap-1 flex-wrap justify-end" role="tablist" aria-label="Secciones principales">
-        <button id="nav-clases" onclick="showSection('clases')" class="nav-pill px-4 py-1 rounded-lg text-xs sm:text-sm font-medium transition-colors active" type="button" aria-pressed="true" aria-current="page">
-          Clases
-        </button>
-        <button id="nav-pruebas" onclick="showSection('pruebas')" class="nav-pill px-4 py-1 rounded-lg text-xs sm:text-sm font-medium transition-colors" type="button" aria-pressed="false">
-          Pruebas y baremos
-        </button>
-        <button id="nav-baremos" onclick="showSection('baremos')" class="nav-pill px-4 py-1 rounded-lg text-xs sm:text-sm font-medium transition-colors" type="button" aria-pressed="false">
-          Tabla baremos
-        </button>
-      </nav>
+  .footer-license-icon {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    opacity: 0.75;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
 
-    </div>
-  </header>
+  .footer-license-icon:hover {
+    transform: scale(1.15);
+    opacity: 1;
+  }
 
+    </style>
+  </head>
 
-  <!-- MAIN -->
-  <main class="max-w-screen-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+  <body class="bg-gray-50 text-gray-900 text-sm sm:text-base">
 
-
-    <!-- SECTION 1 · CLASES -->
-    <section id="section-clases" class="section active">
-
-      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">Clases</h2>
-          <p class="text-gray-500 mt-1 text-sm sm:text-base">Gestiona las clases y grupos de alumnos</p>
-        </div>
-        <button onclick="openAddClassModal()" class="bg-gray-900 text-white px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-          Añadir clase
-        </button>
-      </div>
-
-      <!-- Filtro de Ciclo -->
-      <div class="flex gap-1.5 mb-5">
-        <button id="filter-ciclo-todos" onclick="setCicloFilter('TODOS')"
-          class="ciclo-filter-btn px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border border-gray-300 bg-gray-900 text-white transition-colors">
-          Todos
-        </button>
-        <button id="filter-ciclo-eso" onclick="setCicloFilter('ESO')"
-          class="ciclo-filter-btn px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border border-gray-300 bg-white text-gray-600 transition-colors">
-          ESO
-        </button>
-        <button id="filter-ciclo-bch" onclick="setCicloFilter('BCH')"
-          class="ciclo-filter-btn px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border border-gray-300 bg-white text-gray-600 transition-colors">
-          BCH
-        </button>
-      </div>
-
-      <!-- Cards grid -->
-      <div id="clases-grid" class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));"></div>
-
-      <!-- Empty state -->
-      <div id="clases-empty" class="hidden text-center py-20">
-        <svg class="mx-auto w-10 h-10 sm:w-12 sm:h-12 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-        </svg>
-        <p class="text-gray-500 font-medium">No hay clases todavía</p>
-        <p class="text-gray-400 text-sm sm:text-base mt-1">Añade tu primera clase para comenzar</p>
-      </div>
-
-    </section>
-
-
-    <!-- SECTION 2 · ALUMNOS -->
-    <section id="section-alumnos" class="section">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-        <h2 id="alumnos-title" class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">—</h2>
-      
-        <div class="flex flex-wrap gap-2">
-          <button onclick="exportClassReport()"
-            class="bg-white border border-gray-300 text-gray-700 px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors">
-            Exportar PDF clase
+    <!-- HEADER  -->
+    <header class="bg-white border-b border-gray-200 sticky top-0" style="z-index:1040;">
+      <div class="max-w-screen-3xl mx-auto px-4 sm:px-6 py-3">
+    
+        <div class="flex items-center justify-between gap-4">
+    
+          <!-- Logo + Title -->
+          <div class="flex items-center gap-1">
+            <div
+              class="w-6 h-7 bg-gray-900 rounded-r-lg flex items-center justify-center text-center flex-shrink-0 text-white font-bolder text-4xl">
+              B
+            </div>
+            <h3 class="font-bolder text-4xl m-auto text-gray-900">aremos</h3>
+          </div>
+    
+          <!-- Botón hamburguesa móvil -->
+          <button id="mobile-menu-btn" class="mobile-menu-btn sm:hidden" type="button" aria-label="Abrir menú"
+            aria-expanded="false" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
-        
-          <button onclick="openBulkStudentsModal()"
-            class="bg-white border border-gray-300 text-gray-700 px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors">
-            Importar alumnos
+    
+          <!-- Nav desktop -->
+          <nav class="hidden sm:flex gap-1 flex-wrap justify-end" role="tablist" aria-label="Secciones principales">
+            <button id="nav-clases" onclick="showSection('clases')"
+              class="nav-pill px-4 py-1 rounded-lg text-xs sm:text-sm font-medium transition-colors active" type="button"
+              aria-pressed="true" aria-current="page">
+              Clases
+            </button>
+            <button id="nav-pruebas" onclick="showSection('pruebas')"
+              class="nav-pill px-4 py-1 rounded-lg text-xs sm:text-sm font-medium transition-colors" type="button"
+              aria-pressed="false">
+              Pruebas y baremos
+            </button>
+            <button id="nav-baremos" onclick="showSection('baremos')"
+              class="nav-pill px-4 py-1 rounded-lg text-xs sm:text-sm font-medium transition-colors" type="button"
+              aria-pressed="false">
+              Tabla baremos
+            </button>
+          </nav>
+    
+        </div>
+    
+        <!-- Nav móvil -->
+        <nav id="mobile-nav" class="mobile-nav sm:hidden" role="tablist" aria-label="Secciones principales móvil">
+          <button onclick="showSection('clases')"
+            class="nav-pill mobile-nav-pill px-4 py-2 rounded-lg text-sm font-medium transition-colors active"
+            type="button">
+            Clases
           </button>
-        
-          <button onclick="openAddStudentDrawer()"
-            class="bg-gray-900 text-white px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors flex items-center gap-1.5">
+          <button onclick="showSection('pruebas')"
+            class="nav-pill mobile-nav-pill px-4 py-2 rounded-lg text-sm font-medium transition-colors" type="button">
+            Pruebas y baremos
+          </button>
+          <button onclick="showSection('baremos')"
+            class="nav-pill mobile-nav-pill px-4 py-2 rounded-lg text-sm font-medium transition-colors" type="button">
+            Tabla baremos
+          </button>
+        </nav>
+    
+      </div>
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="max-w-screen-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <!-- SECTION 1 · CLASES -->
+      <section id="section-clases" class="section active">
+
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">Clases</h2>
+            <p class="text-gray-500 mt-1 text-sm sm:text-base">Gestiona las clases y grupos de alumnos</p>
+          </div>
+          <button onclick="openAddClassModal()" class="bg-gray-900 text-white px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors flex items-center gap-1.5">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
-            Añadir alumno
+            Añadir clase
           </button>
         </div>
-      </div>
-      <!-- Resumen de clase -->
-      <div id="class-summary-panel" class="mb-5 hidden"></div>
-      <!-- Buscador, filtro género y estado -->
-      <div id="alumnos-toolbar" class="flex flex-col sm:flex-row gap-3 mb-4 hidden">
 
-        <div class="flex-1 min-w-0">
-          <label for="student-search" class="sr-only">Buscar por nombre</label>
-          <input type="text" id="student-search" placeholder="Buscar por nombre o apellidos..."
-            oninput="applyStudentFilters()"
-            class="w-full text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gray-800 focus:border-gray-800" />
+        <!-- Filtro de Ciclo -->
+        <div class="flex gap-1.5 mb-5">
+          <button id="filter-ciclo-todos" onclick="setCicloFilter('TODOS')"
+            class="ciclo-filter-btn px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border border-gray-300 bg-gray-900 text-white transition-colors">
+            Todos
+          </button>
+          <button id="filter-ciclo-eso" onclick="setCicloFilter('ESO')"
+            class="ciclo-filter-btn px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border border-gray-300 bg-white text-gray-600 transition-colors">
+            ESO
+          </button>
+          <button id="filter-ciclo-bch" onclick="setCicloFilter('BCH')"
+            class="ciclo-filter-btn px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border border-gray-300 bg-white text-gray-600 transition-colors">
+            BCH
+          </button>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3">
+        <!-- Cards grid -->
+        <div id="clases-grid" class="grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));"></div>
 
-          <div class="flex items-center gap-2">
-            <label for="student-gender-filter" class="text-xs sm:text-sm font-medium text-gray-700 whitespace-nowrap">
-              Género
-            </label>
-
-            <select id="student-gender-filter" onchange="applyStudentFilters()"
-              class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800">
-              <option value="all">Todos</option>
-              <option value="M">Masculino</option>
-              <option value="F">Femenino</option>
-            </select>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <label for="student-pending-filter" class="text-xs sm:text-sm font-medium text-gray-700 whitespace-nowrap">
-              Estado
-            </label>
-
-            <select id="student-pending-filter" onchange="applyStudentFilters()"
-              class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800">
-              <option value="all">Todos</option>
-              <option value="pending">Pendientes</option>
-              <option value="complete">Completos</option>
-            </select>
-          </div>
-
-      </div>
-</div>
-      <!-- Bootstrap Tabs: trimesters (estilo Tailwind) -->
-      <div id="trimesterTabs-wrap" class="border border-gray-300 border-b-0 rounded-t-xl bg-gray-100 px-2.5 pt-2 pb-0">
-        <ul class="nav nav-tabs mb-0 flex flex-wrap gap-1" id="trimesterTabs" role="tablist">
-          <li class="nav-item m-0" role="presentation">
-            <button class="nav-link active border border-gray-300 border-b-0 rounded-t-lg px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors" id="t1-tab" data-bs-toggle="tab" data-bs-target="#t1-pane" type="button" onclick="setCurrentTrimester(1)">
-              Trimestre 1
-            </button>
-          </li>
-          <li class="nav-item m-0" role="presentation">
-            <button class="nav-link border border-gray-300 border-b-0 rounded-t-lg px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium text-gray-500 bg-gray-100 hover:text-gray-700 hover:bg-gray-200 transition-colors" id="t2-tab" data-bs-toggle="tab" data-bs-target="#t2-pane" type="button" onclick="setCurrentTrimester(2)">
-              Trimestre 2
-            </button>
-          </li>
-          <li class="nav-item m-0" role="presentation">
-            <button class="nav-link border border-gray-300 border-b-0 rounded-t-lg px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium text-gray-500 bg-gray-100 hover:text-gray-700 hover:bg-gray-200 transition-colors" id="t3-tab" data-bs-toggle="tab" data-bs-target="#t3-pane" type="button" onclick="setCurrentTrimester(3)">
-              Trimestre 3
-            </button>
-          </li>
-        </ul>
-      </div>
-
-      <div class="tab-content">
-        <div class="tab-pane fade show active" id="t1-pane" role="tabpanel">
-          <div id="students-table-t1" class="overflow-x-auto bg-white border border-gray-200 border-t-0 rounded-b-xl shadow-md"></div>
-        </div>
-        <div class="tab-pane fade" id="t2-pane" role="tabpanel">
-          <div id="students-table-t2" class="overflow-x-auto bg-white border border-gray-200 border-t-0 rounded-b-xl shadow-md"></div>
-        </div>
-        <div class="tab-pane fade" id="t3-pane" role="tabpanel">
-          <div id="students-table-t3" class="overflow-x-auto bg-white border border-gray-200 border-t-0 rounded-b-xl shadow-md"></div>
-        </div>
-      </div>
-
-    </section>
-
-
-    <!-- SECTION 3 · PRUEBAS Y BAREMOS -->
-    <section id="section-pruebas" class="section">
-
-      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">Pruebas y baremos</h2>
-          <p class="text-gray-500 mt-1 text-sm sm:text-base">Configura las pruebas físicas y sus criterios de evaluación</p>
-        </div>
-        <button onclick="openAddTestModal()" class="bg-gray-900 text-white px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        <!-- Empty state -->
+        <div id="clases-empty" class="hidden text-center py-20">
+          <svg class="mx-auto w-10 h-10 sm:w-12 sm:h-12 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
-          Añadir prueba
-        </button>
-      </div>
-
-      <div class="overflow-x-auto bg-white border border-gray-200 rounded-xl shadow-md">
-        <table class="w-full border-collapse text-xs sm:text-sm">
-          <thead class="sticky top-0 bg-slate-50">
-            <tr>
-              <th class="text-xs sm:text-sm text-left px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Nombre de la prueba</th>
-              <th class="text-xs sm:text-sm text-left px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Unidad</th>
-              <th class="text-xs sm:text-sm text-left px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Activa</th>
-              <th class="text-xs sm:text-sm text-right px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="pruebas-tbody"></tbody>
-        </table>
-      </div>
-
-    </section>
-
-    <!-- SECTION 4 · TABLA BAREMOS (consulta) -->
-    <section id="section-baremos" class="section">
-
-      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-        <div>
-          <h2 class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">Tabla de baremos</h2>
-          <p class="text-gray-500 mt-1 text-sm sm:text-base">Consulta los criterios de puntuación por ciclo, grado y género</p>
+          <p class="text-gray-500 font-medium">No hay clases todavía</p>
+          <p class="text-gray-400 text-sm sm:text-base mt-1">Añade tu primera clase para comenzar</p>
         </div>
-      </div>
+      </section>
 
-      <!-- Filtros -->
-      <div class="flex flex-wrap gap-3 mb-5 items-end">
-        <div class="flex flex-col gap-1">
-          <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Ciclo</label>
-          <select id="baremos-filter-ciclo" onchange="applyBaremosFilters()"
-            class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[110px]">
-            <option value="">Todos</option>
-          </select>
-        </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Grado</label>
-          <select id="baremos-filter-grado" onchange="applyBaremosFilters()"
-            class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[100px]">
-            <option value="">Todos</option>
-          </select>
-        </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Género</label>
-          <select id="baremos-filter-genero" onchange="applyBaremosFilters()"
-            class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[130px]">
-            <option value="">Todos</option>
-          </select>
-        </div>
-        <div class="flex flex-col gap-1">
-          <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Prueba</label>
-          <select id="baremos-filter-prueba" onchange="applyBaremosFilters()"
-            class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[160px]">
-            <option value="">Todas</option>
-          </select>
-        </div>
-        <button onclick="resetBaremosFilters()"
-          class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white text-gray-600 hover:bg-gray-50 transition-colors">
-          Limpiar filtros
-        </button>
-      </div>
-
-      <!-- Tabla -->
-      <div class="overflow-x-auto bg-white border border-gray-200 rounded-xl shadow-md">
-        <div id="baremos-table-wrap"></div>
-      </div>
-
-      <!-- Empty state -->
-      <div id="baremos-empty" class="hidden text-center py-20">
-        <p class="text-gray-500 font-medium">Sin resultados para los filtros seleccionados</p>
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- MODAL · ADD / EDIT CLASS -->
-  <div class="modal fade" id="classModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
-          <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg" id="classModalTitle">Añadir clase</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <input type="hidden" id="class-edit-id" />
-          <div class="mb-4">
-            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Año académico</label>
-            <input type="text" id="class-year" placeholder="Ej. 2024–2025" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" disabled />
-          </div>
-          <div class="mb-4">
-            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Ciclo formativo</label>
-            <!-- <input type="text" id="ciclo-formativo" placeholder="Ej. ESO/BCH" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" /> -->
-            <select id="ciclo-formativo" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base bg-white uppercase">              
-              <option value="ESO">ESO</option>
-              <option value="BCH">BCH</option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1" >Grado</label>
-            <input type="number" id="grado" placeholder="Ej. 1 /2 /3" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" maxlength="1" />
-          </div>
-          <div class="mb-4">
-            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Curso</label>
-            <input type="text" id="curso" placeholder="Ej. A /B /C" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" maxlength="3" />
-          </div> 
-          <div class="mb-4">
-            <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Nombre de la clase</label>
-            <input type="text" id="class-name" disabled class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" />
-          </div> 
-        </div>
-        <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
-          <button type="button" data-bs-dismiss="modal" class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-            Cancelar
-          </button>
-          <button type="button" onclick="saveClass()" class="px-4 py-1 text-xs sm:text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
-            Guardar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL · ADD / EDIT TEST -->
-  <div class="modal fade" id="testModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
-          <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg" id="testModalTitle">Añadir prueba</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body px-4 sm:px-6 py-5 overflow-y-auto" style="max-height:70vh;">
-          <input type="hidden" id="test-edit-id" />
-
-          <!-- Identificador + Activa -->
-          <div class="flex gap-4 mb-4 items-start">
-            <div class="flex-1">
-              <label class="block text-sm font-medium text-gray-700 mb-1">Identificador (PRUEBA) <span class="text-red-500">*</span></label>
-              <input type="text" id="test-prueba" placeholder="Ej. VEL50M" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm uppercase" />
-              <p class="text-xs text-gray-400 mt-1">Clave única, no se puede cambiar al editar.</p>
-            </div>
-            <div class="flex flex-col items-start gap-1 pt-1">
-              <label class="text-sm font-medium text-gray-700">Activa</label>
-              <label class="toggle-wrap mt-2">
-                <input type="checkbox" id="test-habilitar" class="toggle-input" checked />
-                <span class="toggle-track"><span class="toggle-thumb"></span></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Nombre de la prueba -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Nombre de la prueba <span class="text-red-500">*</span></label>
-            <input type="text" id="test-name" placeholder="Ej. Velocidad 50m" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-          </div>
-
-          <!-- Unidad + Tipo -->
-          <div class="flex gap-4 mb-4">
-            <div class="flex-1">
-              <label class="block text-sm font-medium text-gray-700 mb-1">Unidad <span class="text-red-500">*</span></label>
-              <input type="text" id="test-unit" placeholder="Ej. segundos, cm, rep." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-            </div>
-            <div class="flex-1">
-              <label class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
-              <input type="text" id="test-tipo" placeholder="Ej. Resistencia" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-            </div>
-          </div>
-
-          <!-- Objetivo -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Objetivo</label>
-            <input type="text" id="test-objetivo" placeholder="Ej. Medir capacidad aeróbica" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-          </div>
-
-          <!-- Medio + Material -->
-          <div class="flex gap-4 mb-4">
-            <div class="flex-1">
-              <label class="block text-sm font-medium text-gray-700 mb-1">Medio</label>
-              <input type="text" id="test-medio" placeholder="Ej. Pista de atletismo" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-            </div>
-            <div class="flex-1">
-              <label class="block text-sm font-medium text-gray-700 mb-1">Material</label>
-              <input type="text" id="test-material" placeholder="Ej. Cronómetro" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-            </div>
-          </div>
-
-          <!-- Descripción -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
-            <textarea id="test-descripcion" rows="6" placeholder="Descripción de la prueba..."
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-y leading-relaxed"
-              style="min-height: 140px; white-space: pre-wrap;"></textarea>
-          </div>
+      <!-- SECTION 2 · ALUMNOS -->
+      <section id="section-alumnos" class="section">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <h2 id="alumnos-title" class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">—</h2>
+        
+          <div class="flex flex-wrap gap-2">
+            <button onclick="exportClassReport()"
+              class="bg-white border border-gray-300 text-gray-700 px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors">
+              Exportar PDF clase
+            </button>
           
-          <!-- Valoración -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Valoración</label>
-            <textarea id="test-valoracion" rows="4" placeholder="Criterios de valoración..."
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-y leading-relaxed"
-              style="min-height: 100px; white-space: pre-wrap;"></textarea>
+            <button onclick="openBulkStudentsModal()"
+              class="bg-white border border-gray-300 text-gray-700 px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors">
+              Importar alumnos
+            </button>
+          
+            <button onclick="openAddStudentDrawer()"
+              class="bg-gray-900 text-white px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              Añadir alumno
+            </button>
           </div>
         </div>
-        <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
-          <button type="button" data-bs-dismiss="modal" class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-            Cancelar
-          </button>
-          <button type="button" onclick="saveTest()" class="px-4 py-1 text-xs sm:text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
-            Guardar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+        <!-- Resumen de clase -->
+        <div id="class-summary-panel" class="mb-5 hidden"></div>
+        <!-- Buscador, filtro género y estado -->
+        <div id="alumnos-toolbar" class="flex flex-col sm:flex-row gap-3 mb-4 hidden">
 
-
-  <!-- MODAL · CONFIRM DELETE -->
-  <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-      <div class="modal-content">
-        <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
-          <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg" id="confirmDeleteTitle">Confirmar eliminación</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body px-4 sm:px-6 py-4">
-          <p class="text-sm sm:text-base text-gray-600" id="confirmDeleteMessage">¿Estás seguro?</p>
-        </div>
-        <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
-          <button type="button" data-bs-dismiss="modal" class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-            Cancelar
-          </button>
-          <button type="button" id="confirmDeleteBtn" class="px-4 py-1 border border-gray-200 text-xs sm:text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">
-            Eliminar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL · IMPORTACIÓN MASIVA DE ALUMNOS -->
-  <div class="modal fade" id="bulkStudentsModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-  
-        <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
-          <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg">
-            Importar alumnos
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-  
-        <div class="modal-body px-4 sm:px-6 py-5">
-          <p class="text-sm text-gray-500 mb-3">
-            Pega un alumno por línea. Puedes usar <strong>Nombre completo; Género</strong>.
-          </p>
-  
-          <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4 text-xs text-gray-500">
-            <p class="font-semibold text-gray-700 mb-1">Ejemplo:</p>
-            <pre class="m-0 whitespace-pre-wrap">Juan Pérez García; M
-              María López Ruiz; F 
-              Carlos Martín Soto; M</pre>
+          <div class="flex-1 min-w-0">
+            <label for="student-search" class="sr-only">Buscar por nombre</label>
+            <input type="text" id="student-search" placeholder="Buscar por nombre o apellidos..."
+              oninput="applyStudentFilters()"
+              class="w-full text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gray-800 focus:border-gray-800" />
           </div>
-  
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-              Lista de alumnos
-            </label>
-            <textarea id="bulk-students-text" rows="10" placeholder="Juan Pérez García; M&#10;María López Ruiz; F"
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-y leading-relaxed"></textarea>
-          </div>
-  
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                Género por defecto
+
+          <div class="flex flex-wrap items-center gap-3">
+
+            <div class="flex items-center gap-2">
+              <label for="student-gender-filter" class="text-xs sm:text-sm font-medium text-gray-700 whitespace-nowrap">
+                Género
               </label>
-              <select id="bulk-default-gender"
-                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
+
+              <select id="student-gender-filter" onchange="applyStudentFilters()"
+                class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800">
+                <option value="all">Todos</option>
                 <option value="M">Masculino</option>
                 <option value="F">Femenino</option>
               </select>
             </div>
-  
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                Separador
+
+            <div class="flex items-center gap-2">
+              <label for="student-pending-filter" class="text-xs sm:text-sm font-medium text-gray-700 whitespace-nowrap">
+                Estado
               </label>
-              <select id="bulk-separator" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
-                <option value="auto">Auto</option>
-                <option value=";">Punto y coma ;</option>
-                <option value=",">Coma ,</option>
-                <option value="tab">Tabulación</option>
+
+              <select id="student-pending-filter" onchange="applyStudentFilters()"
+                class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800">
+                <option value="all">Todos</option>
+                <option value="pending">Pendientes</option>
+                <option value="complete">Completos</option>
               </select>
             </div>
-          </div>
-  
-          <div id="bulk-students-preview" class="hidden border border-gray-200 rounded-lg overflow-hidden text-sm">
-          </div>
         </div>
-  
-        <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
-          <button type="button" data-bs-dismiss="modal"
-            class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-            Cancelar
-          </button>
-  
-          <button type="button" onclick="previewBulkStudents()"
-            class="border border-gray-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 transition-colors">
-            Vista previa
-          </button>
-  
-          <button type="button" onclick="saveBulkStudents()"
-            class="px-4 py-1 text-xs sm:text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
-            Importar
-          </button>
-        </div>
-  
-      </div>
-    </div>
   </div>
-
-  <!-- OFFCANVAS · STUDENT DETAIL -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="studentDrawer" style="width:100%;max-width:500px;">
-
-    <!-- Drawer header -->
-    <div class="offcanvas-header border-b border-gray-100 px-4 sm:px-6 py-4">
-      <div>
-        <h5 class="offcanvas-title font-semibold text-gray-900 text-base sm:text-lg" id="drawer-student-name">—</h5>
-        <div class="flex items-center gap-2 mt-1">
-          <span id="drawer-student-gender" class="text-sm sm:text-base font-medium px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">—</span>
-          <span id="drawer-student-class" class="text-sm sm:text-base text-gray-500">—</span>
+        <!-- Bootstrap Tabs: trimesters (estilo Tailwind) -->
+        <div id="trimesterTabs-wrap" class="border border-gray-300 border-b-0 rounded-t-xl bg-gray-100 px-2.5 pt-2 pb-0">
+          <ul class="nav nav-tabs mb-0 flex flex-wrap gap-1" id="trimesterTabs" role="tablist">
+            <li class="nav-item m-0" role="presentation">
+              <button class="nav-link active border border-gray-300 border-b-0 rounded-t-lg px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors" id="t1-tab" data-bs-toggle="tab" data-bs-target="#t1-pane" type="button" onclick="setCurrentTrimester(1)">
+                Trimestre 1
+              </button>
+            </li>
+            <li class="nav-item m-0" role="presentation">
+              <button class="nav-link border border-gray-300 border-b-0 rounded-t-lg px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium text-gray-500 bg-gray-100 hover:text-gray-700 hover:bg-gray-200 transition-colors" id="t2-tab" data-bs-toggle="tab" data-bs-target="#t2-pane" type="button" onclick="setCurrentTrimester(2)">
+                Trimestre 2
+              </button>
+            </li>
+            <li class="nav-item m-0" role="presentation">
+              <button class="nav-link border border-gray-300 border-b-0 rounded-t-lg px-3 sm:px-4 py-1 text-xs sm:text-sm font-medium text-gray-500 bg-gray-100 hover:text-gray-700 hover:bg-gray-200 transition-colors" id="t3-tab" data-bs-toggle="tab" data-bs-target="#t3-pane" type="button" onclick="setCurrentTrimester(3)">
+                Trimestre 3
+              </button>
+            </li>
+          </ul>
         </div>
-        <div id="drawer-student-summary" class="grid grid-cols-4 gap-2 mt-3"></div>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="t1-pane" role="tabpanel">
+            <div id="students-table-t1" class="overflow-x-auto bg-white border border-gray-200 border-t-0 rounded-b-xl shadow-md"></div>
+          </div>
+          <div class="tab-pane fade" id="t2-pane" role="tabpanel">
+            <div id="students-table-t2" class="overflow-x-auto bg-white border border-gray-200 border-t-0 rounded-b-xl shadow-md"></div>
+          </div>
+          <div class="tab-pane fade" id="t3-pane" role="tabpanel">
+            <div id="students-table-t3" class="overflow-x-auto bg-white border border-gray-200 border-t-0 rounded-b-xl shadow-md"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3 · PRUEBAS Y BAREMOS -->
+      <section id="section-pruebas" class="section">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">Pruebas y baremos</h2>
+            <p class="text-gray-500 mt-1 text-sm sm:text-base">Configura las pruebas físicas y sus criterios de evaluación</p>
+          </div>
+          <button onclick="openAddTestModal()" class="bg-gray-900 text-white px-4 py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Añadir prueba
+          </button>
+        </div>
+        <div class="overflow-x-auto bg-white border border-gray-200 rounded-xl shadow-md">
+          <table class="w-full border-collapse text-xs sm:text-sm">
+            <thead class="sticky top-0 bg-slate-50">
+              <tr>
+                <th class="text-xs sm:text-sm text-left px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Nombre de la prueba</th>
+                <th class="text-xs sm:text-sm text-left px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Unidad</th>
+                <th class="text-xs sm:text-sm text-left px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Activa</th>
+                <th class="text-xs sm:text-sm text-right px-2 sm:px-3 py-3.5 sm:py-3 font-bold uppercase tracking-wide text-gray-600 border-b-2 border-gray-200 whitespace-nowrap">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="pruebas-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION 4 · TABLA BAREMOS (consulta) -->
+      <section id="section-baremos" class="section">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900">Tabla de baremos</h2>
+            <p class="text-gray-500 mt-1 text-sm sm:text-base">Consulta los criterios de puntuación por ciclo, grado y género</p>
+          </div>
+        </div>
+        <!-- Filtros -->
+        <div class="flex flex-wrap gap-3 mb-5 items-end">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Ciclo</label>
+            <select id="baremos-filter-ciclo" onchange="applyBaremosFilters()"
+              class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[110px]">
+              <option value="">Todos</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Grado</label>
+            <select id="baremos-filter-grado" onchange="applyBaremosFilters()"
+              class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[100px]">
+              <option value="">Todos</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Género</label>
+            <select id="baremos-filter-genero" onchange="applyBaremosFilters()"
+              class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[130px]">
+              <option value="">Todos</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-600 uppercase tracking-wide">Prueba</label>
+            <select id="baremos-filter-prueba" onchange="applyBaremosFilters()"
+              class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-gray-800 focus:border-gray-800 min-w-[160px]">
+              <option value="">Todas</option>
+            </select>
+          </div>
+          <button onclick="resetBaremosFilters()"
+            class="text-xs sm:text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white text-gray-600 hover:bg-gray-50 transition-colors">
+            Limpiar filtros
+          </button>
+        </div>
+        <!-- Tabla -->
+        <div class="overflow-x-auto bg-white border border-gray-200 rounded-xl shadow-md">
+          <div id="baremos-table-wrap"></div>
+        </div>
+        <!-- Empty state -->
+        <div id="baremos-empty" class="hidden text-center py-20">
+          <p class="text-gray-500 font-medium">Sin resultados para los filtros seleccionados</p>
+        </div>
+      </section>
+    </main>
+
+        <!-- FOOTER -->
+        <footer class="app-footer mt-8 px-4 sm:px-6 py-4 text-xs sm:text-sm">
+          <div
+            class="max-w-screen-3xl mx-auto flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 text-center"
+            xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+        
+            <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/GerardoHMX"
+              target="_blank" class="inline-flex items-center" aria-label="Perfil de Gerardo Huizar Castro">
+              <img src="profile.jpg" alt="Perfil de Gerardo Huizar Castro" class="footer-profile-img" />
+            </a>
+        
+            <div class="flex flex-row flex-wrap items-center justify-center gap-1">
+              <a property="dct:title" rel="cc:attributionURL" href="https://github.com/GerardoHMX/baremos"
+                target="_blank" data-translate="footer_made_by">
+                Realizado por
+              </a>
+        
+              <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/GerardoHMX"
+                target="_blank">
+                Gerardo Huizar Castro
+              </a>
+            </div>
+        
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank"
+              rel="license noopener noreferrer" class="inline-flex flex-row flex-wrap items-center justify-center gap-1">
+              <span data-translate="footer_license">bajo licencia</span>
+        
+              <img class="footer-license-icon" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"
+                alt="Creative Commons" />
+        
+              <img class="footer-license-icon" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"
+                alt="Atribución" />
+        
+              <img class="footer-license-icon" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"
+                alt="No comercial" />
+        
+              <img class="footer-license-icon" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"
+                alt="Compartir igual" />
+            </a>
+        
+          </div>
+        </footer>
+
+
+    <!-- MODAL · ADD / EDIT CLASS -->
+    <div class="modal fade" id="classModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
+            <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg" id="classModalTitle">Añadir clase</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-4">
+            <input type="hidden" id="class-edit-id" />
+            <div class="mb-4">
+              <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Año académico</label>
+              <input type="text" id="class-year" placeholder="Ej. 2024–2025" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" disabled />
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Ciclo formativo</label>
+              <!-- <input type="text" id="ciclo-formativo" placeholder="Ej. ESO/BCH" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" /> -->
+              <select id="ciclo-formativo" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base bg-white uppercase">              
+                <option value="ESO">ESO</option>
+                <option value="BCH">BCH</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1" >Grado</label>
+              <input type="number" id="grado" placeholder="Ej. 1 /2 /3" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" maxlength="1" />
+            </div>
+            <div class="mb-4">
+              <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Curso</label>
+              <input type="text" id="curso" placeholder="Ej. A /B /C" oninput="updateClassName()" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" maxlength="3" />
+            </div> 
+            <div class="mb-4">
+              <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Nombre de la clase</label>
+              <input type="text" id="class-name" disabled class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base uppercase" />
+            </div> 
+          </div>
+          <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
+            <button type="button" data-bs-dismiss="modal" class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+              Cancelar
+            </button>
+            <button type="button" onclick="saveClass()" class="px-4 py-1 text-xs sm:text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              Guardar
+            </button>
+          </div>
+        </div>
       </div>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
 
-    <!-- Drawer body -->
-    <div class="offcanvas-body p-0 d-flex flex-column" style="overflow:hidden;">
-
-      <!-- Trimester tabs -->
-      <ul class="nav nav-tabs px-4 sm:px-6 pt-4 flex-shrink-0" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="dt1-tab" data-bs-toggle="tab" data-bs-target="#dt1-pane" type="button">T1</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="dt2-tab" data-bs-toggle="tab" data-bs-target="#dt2-pane" type="button">T2</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="dt3-tab" data-bs-toggle="tab" data-bs-target="#dt3-pane" type="button">T3</button>
-        </li>
-      </ul>
-
-      <!-- Tab panes (scrollable area) -->
-      <div class="tab-content flex-grow-1 overflow-y-auto px-4 sm:px-6 py-4">
-
-        <!-- T1 -->
-        <div class="tab-pane fade show active" id="dt1-pane" role="tabpanel">
-          <div id="drawer-tests-t1"></div>
-          <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between">
-            <span class="text-sm sm:text-base font-medium text-gray-700">Media baremo del trimestre</span>
-            <span id="drawer-avg-t1" class="text-lg sm:text-xl font-bold text-emerald-600">—</span>
+    <!-- MODAL · ADD / EDIT TEST -->
+    <div class="modal fade" id="testModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
+            <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg" id="testModalTitle">Añadir prueba</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="mt-4 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50" style="height:180px;">
-            <p class="text-sm sm:text-base text-gray-400">Gráfico próximamente</p>
+          <div class="modal-body px-4 sm:px-6 py-5 overflow-y-auto" style="max-height:70vh;">
+            <input type="hidden" id="test-edit-id" />
+
+            <!-- Identificador + Activa -->
+            <div class="flex gap-4 mb-4 items-start">
+              <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Identificador (PRUEBA) <span class="text-red-500">*</span></label>
+                <input type="text" id="test-prueba" placeholder="Ej. VEL50M" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm uppercase" />
+                <p class="text-xs text-gray-400 mt-1">Clave única, no se puede cambiar al editar.</p>
+              </div>
+              <div class="flex flex-col items-start gap-1 pt-1">
+                <label class="text-sm font-medium text-gray-700">Activa</label>
+                <label class="toggle-wrap mt-2">
+                  <input type="checkbox" id="test-habilitar" class="toggle-input" checked />
+                  <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                </label>
+              </div>
+            </div>
+            <!-- Nombre de la prueba -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nombre de la prueba <span class="text-red-500">*</span></label>
+              <input type="text" id="test-name" placeholder="Ej. Velocidad 50m" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+            </div>
+
+            <!-- Unidad + Tipo -->
+            <div class="flex gap-4 mb-4">
+              <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Unidad <span class="text-red-500">*</span></label>
+                <input type="text" id="test-unit" placeholder="Ej. segundos, cm, rep." class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+              </div>
+              <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+                <input type="text" id="test-tipo" placeholder="Ej. Resistencia" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+              </div>
+            </div>
+
+            <!-- Objetivo -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Objetivo</label>
+              <input type="text" id="test-objetivo" placeholder="Ej. Medir capacidad aeróbica" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+            </div>
+
+            <!-- Medio + Material -->
+            <div class="flex gap-4 mb-4">
+              <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Medio</label>
+                <input type="text" id="test-medio" placeholder="Ej. Pista de atletismo" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+              </div>
+              <div class="flex-1">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Material</label>
+                <input type="text" id="test-material" placeholder="Ej. Cronómetro" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
+              </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+              <textarea id="test-descripcion" rows="6" placeholder="Descripción de la prueba..."
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-y leading-relaxed"
+                style="min-height: 140px; white-space: pre-wrap;"></textarea>
+            </div>
+            
+            <!-- Valoración -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Valoración</label>
+              <textarea id="test-valoracion" rows="4" placeholder="Criterios de valoración..."
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-y leading-relaxed"
+                style="min-height: 100px; white-space: pre-wrap;"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
+            <button type="button" data-bs-dismiss="modal" class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+              Cancelar
+            </button>
+            <button type="button" onclick="saveTest()" class="px-4 py-1 text-xs sm:text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              Guardar
+            </button>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- T2 -->
-        <div class="tab-pane fade" id="dt2-pane" role="tabpanel">
-          <div id="drawer-tests-t2"></div>
-          <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between">
-            <span class="text-sm sm:text-base font-medium text-gray-700">Media baremo del trimestre</span>
-            <span id="drawer-avg-t2" class="text-lg sm:text-xl font-bold text-emerald-600">—</span>
+
+    <!-- MODAL · CONFIRM DELETE -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+          <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
+            <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg" id="confirmDeleteTitle">Confirmar eliminación</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="mt-4 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50" style="height:180px;">
-            <p class="text-sm sm:text-base text-gray-400">Gráfico próximamente</p>
+          <div class="modal-body px-4 sm:px-6 py-4">
+            <p class="text-sm sm:text-base text-gray-600" id="confirmDeleteMessage">¿Estás seguro?</p>
+          </div>
+          <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
+            <button type="button" data-bs-dismiss="modal" class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+              Cancelar
+            </button>
+            <button type="button" id="confirmDeleteBtn" class="px-4 py-1 border border-gray-200 text-xs sm:text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">
+              Eliminar
+            </button>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- T3 -->
-        <div class="tab-pane fade" id="dt3-pane" role="tabpanel">
-          <div id="drawer-tests-t3"></div>
-          <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between">
-            <span class="text-sm sm:text-base font-medium text-gray-700">Media baremo del trimestre</span>
-            <span id="drawer-avg-t3" class="text-lg sm:text-xl font-bold text-emerald-600">—</span>
+    <!-- MODAL · IMPORTACIÓN MASIVA DE ALUMNOS -->
+    <div class="modal fade" id="bulkStudentsModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+    
+          <div class="modal-header border-b border-gray-100 px-4 sm:px-6 py-4">
+            <h5 class="modal-title font-semibold text-gray-900 text-base sm:text-lg">
+              Importar alumnos
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="mt-4 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50" style="height:180px;">
-            <p class="text-sm sm:text-base text-gray-400">Gráfico próximamente</p>
+    
+          <div class="modal-body px-4 sm:px-6 py-5">
+            <p class="text-sm text-gray-500 mb-3">
+              Pega un alumno por línea. Puedes usar <strong>Nombre completo; Género</strong>.
+            </p>
+    
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4 text-xs text-gray-500">
+              <p class="font-semibold text-gray-700 mb-1">Ejemplo:</p>
+              <pre class="m-0 whitespace-pre-wrap">Juan Pérez García; M
+                María López Ruiz; F 
+                Carlos Martín Soto; M</pre>
+            </div>
+    
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                Lista de alumnos
+              </label>
+              <textarea id="bulk-students-text" rows="10" placeholder="Juan Pérez García; M&#10;María López Ruiz; F"
+                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-y leading-relaxed"></textarea>
+            </div>
+    
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  Género por defecto
+                </label>
+                <select id="bulk-default-gender"
+                  class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
+                  <option value="M">Masculino</option>
+                  <option value="F">Femenino</option>
+                </select>
+              </div>
+    
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  Separador
+                </label>
+                <select id="bulk-separator" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
+                  <option value="auto">Auto</option>
+                  <option value=";">Punto y coma ;</option>
+                  <option value=",">Coma ,</option>
+                  <option value="tab">Tabulación</option>
+                </select>
+              </div>
+            </div>
+    
+            <div id="bulk-students-preview" class="hidden border border-gray-200 rounded-lg overflow-hidden text-sm">
+            </div>
           </div>
+    
+          <div class="modal-footer border-t border-gray-100 px-4 sm:px-6 py-4 gap-2">
+            <button type="button" data-bs-dismiss="modal"
+              class="border border-grey-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+              Cancelar
+            </button>
+    
+            <button type="button" onclick="previewBulkStudents()"
+              class="border border-gray-300 px-4 py-1 text-xs sm:text-sm font-medium text-gray-700 bg-white rounded-lg hover:bg-gray-50 transition-colors">
+              Vista previa
+            </button>
+    
+            <button type="button" onclick="saveBulkStudents()"
+              class="px-4 py-1 text-xs sm:text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors">
+              Importar
+            </button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+    <!-- OFFCANVAS · STUDENT DETAIL -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="studentDrawer" style="width:100%;max-width:500px;">
+
+      <!-- Drawer header -->
+      <div class="offcanvas-header border-b border-gray-100 px-4 sm:px-6 py-4">
+        <div>
+          <h5 class="offcanvas-title font-semibold text-gray-900 text-base sm:text-lg" id="drawer-student-name">—</h5>
+          <div class="flex items-center gap-2 mt-1">
+            <span id="drawer-student-gender" class="text-sm sm:text-base font-medium px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">—</span>
+            <span id="drawer-student-class" class="text-sm sm:text-base text-gray-500">—</span>
+          </div>
+          <div id="drawer-student-summary" class="grid grid-cols-4 gap-2 mt-3"></div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+
+      <!-- Drawer body -->
+      <div class="offcanvas-body p-0 d-flex flex-column" style="overflow:hidden;">
+
+        <!-- Trimester tabs -->
+        <ul class="nav nav-tabs px-4 sm:px-6 pt-4 flex-shrink-0" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="dt1-tab" data-bs-toggle="tab" data-bs-target="#dt1-pane" type="button">T1</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dt2-tab" data-bs-toggle="tab" data-bs-target="#dt2-pane" type="button">T2</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dt3-tab" data-bs-toggle="tab" data-bs-target="#dt3-pane" type="button">T3</button>
+          </li>
+        </ul>
+
+        <!-- Tab panes (scrollable area) -->
+        <div class="tab-content flex-grow-1 overflow-y-auto px-4 sm:px-6 py-4">
+
+          <!-- T1 -->
+          <div class="tab-pane fade show active" id="dt1-pane" role="tabpanel">
+            <div id="drawer-tests-t1"></div>
+            <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between">
+              <span class="text-sm sm:text-base font-medium text-gray-700">Media baremo del trimestre</span>
+              <span id="drawer-avg-t1" class="text-lg sm:text-xl font-bold text-emerald-600">—</span>
+            </div>
+            <div class="mt-4 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50" style="height:180px;">
+              <p class="text-sm sm:text-base text-gray-400">Gráfico próximamente</p>
+            </div>
+          </div>
+
+          <!-- T2 -->
+          <div class="tab-pane fade" id="dt2-pane" role="tabpanel">
+            <div id="drawer-tests-t2"></div>
+            <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between">
+              <span class="text-sm sm:text-base font-medium text-gray-700">Media baremo del trimestre</span>
+              <span id="drawer-avg-t2" class="text-lg sm:text-xl font-bold text-emerald-600">—</span>
+            </div>
+            <div class="mt-4 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50" style="height:180px;">
+              <p class="text-sm sm:text-base text-gray-400">Gráfico próximamente</p>
+            </div>
+          </div>
+
+          <!-- T3 -->
+          <div class="tab-pane fade" id="dt3-pane" role="tabpanel">
+            <div id="drawer-tests-t3"></div>
+            <div class="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-between">
+              <span class="text-sm sm:text-base font-medium text-gray-700">Media baremo del trimestre</span>
+              <span id="drawer-avg-t3" class="text-lg sm:text-xl font-bold text-emerald-600">—</span>
+            </div>
+            <div class="mt-4 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50" style="height:180px;">
+              <p class="text-sm sm:text-base text-gray-400">Gráfico próximamente</p>
+            </div>
+          </div>
+
+        </div><!-- /tab-content -->
+
+        <!-- Actions pinned to bottom -->
+        <div class="border-t border-gray-100 px-4 sm:px-6 py-4 flex-shrink-0 bg-white">
+        
+          <button onclick="exportStudentReport()"
+            class="w-full mb-2 bg-white border border-gray-300 text-gray-700 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors">
+            Exportar PDF alumno
+          </button>
+        
+          <div id="measurements-save-status" class="mb-2 text-xs sm:text-sm text-gray-400">
+            Sin cambios pendientes
+          </div>
+        
+          <button id="save-measurements-btn" onclick="saveStudentResults()" disabled
+            class="w-full bg-gray-300 text-white py-1.5 rounded-lg text-xs sm:text-sm font-medium cursor-not-allowed transition-colors">
+            Sin cambios por guardar
+          </button>
+        
         </div>
 
-      </div><!-- /tab-content -->
+      </div>
+    </div>
 
-      <!-- Actions pinned to bottom -->
-      <div class="border-t border-gray-100 px-4 sm:px-6 py-4 flex-shrink-0 bg-white">
-      
-        <button onclick="exportStudentReport()"
-          class="w-full mb-2 bg-white border border-gray-300 text-gray-700 py-1.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors">
-          Exportar PDF alumno
+
+    <!-- TOAST · notificaciones no bloqueantes -->
+    <div id="toast-container" class="fixed bottom-5 right-5 flex flex-col gap-2" style="z-index:3000;"></div>
+
+
+    <!-- LOADING OVERLAY -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white flex items-center justify-center" style="z-index:2000;">
+      <div class="text-center">
+        <div class="inline-block w-8 h-8 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin mb-3"></div>
+        <p class="text-sm text-gray-500">Cargando datos…</p>
+      </div>
+    </div>
+
+
+    <!-- OFFCANVAS · ADD / EDIT STUDENT -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="addStudentDrawer" style="width:100%;max-width:380px;">
+      <div class="offcanvas-header border-b border-gray-100 px-4 sm:px-6 py-4">
+        <h5 class="offcanvas-title font-semibold text-gray-900 text-base sm:text-lg" id="addStudentDrawerTitle">Añadir alumno</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body px-4 sm:px-6 py-6">
+        <input type="hidden" id="student-edit-id" />
+        <div class="mb-4 hidden">
+          <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Ciclo formativo</label>
+          <input type="text" id="student-ciclo-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
+        </div>
+        <div class="mb-4 hidden">
+          <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Grado</label>
+          <input type="text" id="student-grado-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
+        </div>
+        <div class="mb-4 hidden">
+          <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Curso</label>
+          <input type="text" id="student-curso-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
+        </div>
+        <div class="mb-6">
+          <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Nombre de la clase</label>
+          <input type="text" id="student-class-name-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Nombre del Alumno <span class="text-red-500">*</span></label>
+          <input type="text" id="new-student-nombre-alumno" placeholder="Nombre completo" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base" />
+        </div>
+        <div class="mb-8">
+          <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Género</label>
+          <select id="new-student-gender"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base bg-white uppercase">
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+          </select>
+        </div>
+        <button onclick="saveNewStudent()" id="addStudentBtn" class="w-full bg-gray-900 text-white py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors">
+          Añadir alumno
         </button>
-      
-        <div id="measurements-save-status" class="mb-2 text-xs sm:text-sm text-gray-400">
-          Sin cambios pendientes
-        </div>
-      
-        <button id="save-measurements-btn" onclick="saveStudentResults()" disabled
-          class="w-full bg-gray-300 text-white py-1.5 rounded-lg text-xs sm:text-sm font-medium cursor-not-allowed transition-colors">
-          Sin cambios por guardar
-        </button>
-      
       </div>
-
     </div>
-  </div>
-
-
-  <!-- TOAST · notificaciones no bloqueantes -->
-  <div id="toast-container" class="fixed bottom-5 right-5 flex flex-col gap-2" style="z-index:3000;"></div>
-
-
-  <!-- LOADING OVERLAY -->
-  <div id="loading-overlay" class="fixed inset-0 bg-white flex items-center justify-center" style="z-index:2000;">
-    <div class="text-center">
-      <div class="inline-block w-8 h-8 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin mb-3"></div>
-      <p class="text-sm text-gray-500">Cargando datos…</p>
-    </div>
-  </div>
-
-
-  <!-- OFFCANVAS · ADD / EDIT STUDENT -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="addStudentDrawer" style="width:100%;max-width:380px;">
-    <div class="offcanvas-header border-b border-gray-100 px-4 sm:px-6 py-4">
-      <h5 class="offcanvas-title font-semibold text-gray-900 text-base sm:text-lg" id="addStudentDrawerTitle">Añadir alumno</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="offcanvas-body px-4 sm:px-6 py-6">
-      <input type="hidden" id="student-edit-id" />
-      <div class="mb-4 hidden">
-        <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Ciclo formativo</label>
-        <input type="text" id="student-ciclo-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
-      </div>
-      <div class="mb-4 hidden">
-        <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Grado</label>
-        <input type="text" id="student-grado-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
-      </div>
-      <div class="mb-4 hidden">
-        <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Curso</label>
-        <input type="text" id="student-curso-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
-      </div>
-      <div class="mb-6">
-        <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Nombre de la clase</label>
-        <input type="text" id="student-class-name-display" disabled class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm sm:text-base bg-gray-50 text-gray-500 uppercase" />
-      </div>
-      <div class="mb-4">
-        <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Nombre del Alumno <span class="text-red-500">*</span></label>
-        <input type="text" id="new-student-nombre-alumno" placeholder="Nombre completo" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base" />
-      </div>
-      <div class="mb-8">
-        <label class="block text-sm sm:text-base font-medium text-gray-700 mb-1">Género</label>
-        <select id="new-student-gender"
-          class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm sm:text-base bg-white uppercase">
-          <option value="M">Masculino</option>
-          <option value="F">Femenino</option>
-        </select>
-      </div>
-      <button onclick="saveNewStudent()" id="addStudentBtn" class="w-full bg-gray-900 text-white py-1 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-700 transition-colors">
-        Añadir alumno
-      </button>
-    </div>
-  </div>
-  <div id="print-root" class="print-root hidden"></div>
-  <script type="module" src="js/app.js"></script>
-</body>
+    <div id="print-root" class="print-root hidden"></div>
+    <script type="module" src="js/app.js"></script>
+  </body>
 
 </html>

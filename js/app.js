@@ -283,6 +283,7 @@ function findBaremoRow(studentId, testId) {
 
 function calculateBaremoResult(studentId, testId, measurement) {
     const value = toNumber(measurement);
+
     if (!Number.isFinite(value)) {
         return {
             grade: null,
@@ -292,6 +293,7 @@ function calculateBaremoResult(studentId, testId, measurement) {
     }
 
     const row = findBaremoRow(studentId, testId);
+
     if (!row) {
         return {
             grade: null,
@@ -318,6 +320,31 @@ function calculateBaremoResult(studentId, testId, measurement) {
     const first = points[0].threshold;
     const last = points[points.length - 1].threshold;
     const higherIsBetter = last >= first;
+
+    const minThreshold = Math.min(...points.map(p => p.threshold));
+    const maxThreshold = Math.max(...points.map(p => p.threshold));
+
+    // Fuera de rango por debajo
+    if (value < minThreshold) {
+        return {
+            grade: higherIsBetter ? 0 : 10,
+            mark: minThreshold,
+            label: higherIsBetter
+                ? `Por debajo del baremo: 0`
+                : `Por encima del baremo: 10`
+        };
+    }
+
+    // Fuera de rango por encima
+    if (value > maxThreshold) {
+        return {
+            grade: higherIsBetter ? 10 : 0,
+            mark: maxThreshold,
+            label: higherIsBetter
+                ? `Por encima del baremo: 10`
+                : `Por debajo del baremo: 0`
+        };
+    }
 
     let selected = null;
 
@@ -390,26 +417,6 @@ function validateMeasurement(studentId, testId, measurement) {
         };
     }
 
-    const range = getBaremoRange(studentId, testId);
-
-    if (!range) {
-        return {
-            valid: true,
-            warning: 'No hay baremo configurado para esta prueba.'
-        };
-    }
-
-    const margin = Math.max((range.max - range.min) * 0.5, 5);
-    const softMin = Math.max(0, range.min - margin);
-    const softMax = range.max + margin;
-
-    if (value < softMin || value > softMax) {
-        return {
-            valid: false,
-            warning: `Marca fuera de rango esperado. Rango aproximado: ${range.min} - ${range.max}.`
-        };
-    }
-
     return {
         valid: true,
         warning: ''
@@ -429,6 +436,29 @@ function hasInvalidMeasurements(studentId) {
 // ────────────────────────────────────────────────────────────
 // SECTION NAVIGATION
 // ────────────────────────────────────────────────────────────
+function toggleMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const nav = document.getElementById('mobile-nav');
+
+    if (!btn || !nav) return;
+
+    const isOpen = nav.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+    btn.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+}
+
+function closeMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const nav = document.getElementById('mobile-nav');
+
+    if (!btn || !nav) return;
+
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Abrir menú');
+}
 
 function showSection(name) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -437,17 +467,33 @@ function showSection(name) {
         b.setAttribute('aria-pressed', 'false');
         b.removeAttribute('aria-current');
     });
+
     document.getElementById(`section-${name}`)?.classList.add('active');
+
     const pill = document.getElementById(`nav-${name}`);
     if (pill) {
         pill.classList.add('active');
         pill.setAttribute('aria-pressed', 'true');
         pill.setAttribute('aria-current', 'page');
     }
+
+    document.querySelectorAll('.mobile-nav-pill').forEach(btn => {
+        const sectionName = btn.textContent.trim().toLowerCase();
+
+        const isActive =
+            (name === 'clases' && sectionName === 'clases') ||
+            (name === 'pruebas' && sectionName === 'pruebas y baremos') ||
+            (name === 'baremos' && sectionName === 'tabla baremos');
+
+        btn.classList.toggle('active', isActive);
+    });
+
     if (name === 'clases') renderClasses();
     if (name === 'pruebas') renderTests();
     if (name === 'alumnos') renderStudentsTable();
     if (name === 'baremos') renderBaremos();
+
+    closeMobileMenu();
 }
 
 
@@ -2695,6 +2741,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // ────────────────────────────────────────────────────────────
 
 Object.assign(window, {
+    toggleMobileMenu,
+    closeMobileMenu,
     showSection,
     setCicloFilter,
     openAddClassModal,
